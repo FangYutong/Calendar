@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        th { background:#5555FF; }
+        .grey { background:#DDDDDD; }
+        .blue { background:#AAAAFF; }
+        .today { background: #FFAAFF}
+    </style>
+    <script>
+
+        function printCal(){
+            var firstDay = parseInt(document.getElementById("days").value);
+            var noOfDays = parseInt(document.getElementById("weekday").value);
+            var today = new Date();
+
+            var html = "<table border='1'><tr><th width='50'>Sun</th><th width='50'>Mon</th><th width='50'>Tue</th><th width='50'>Wed</th><th width='50'>Thu</th><th width='50'>Fri</th><th width='50'>Sat</th></tr>"
+
+
+
+            // for those days before the first day of the month.
+            var currColumn = 0;
+
+            html += "<tr>";
+            for(i = 0; i < firstDay; i++){
+                html += "<td class='grey'></td>";
+                currColumn++;
+            }
+
+
+
+            var day = 1;
+            while (day <= noOfDays)
+            {
+                html += "<td class = blue>" + day + "</td>";
+                currColumn ++;
+
+                if(currColumn == 7){
+                    html += "</tr><tr>";
+                    currColumn = 0;
+                }
+                day++;
+
+                if(day == today.getDate()){
+                    html += "<td class = today>" + day + "</td>";
+                    currColumn ++;
+                    day++;
+                }
+
+            }
+
+            if (currColumn>0) {
+                for (i=currColumn; i<7; i++)
+                    html += "<td class='grey'></td>";
+            }
+
+            html += "</tr></table>";
+
+            document.getElementById("output").innerHTML = html;
+
+        }
+    </script>
+</head>
+<body>
+    1st of the month is on day 0-6?
+    <input id="days">
+    how many days in this month
+    <input id="weekday">
+    <button onclick="printCal()">submit</button>
+    <div id="output"></div>
+</body>
+</html>
